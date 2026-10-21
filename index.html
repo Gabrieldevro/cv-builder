@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generator CV gratuit — previzualizare A4 și export PDF</title>
+  <meta name="description" content="Creează un CV profesional în browser: completezi, vezi live pe pagină A4 și descarci PDF. Datele rămân pe calculatorul tău.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <strong>📄 Generator CV</strong>
+    <div class="actions">
+      <select id="template" aria-label="Șablon">
+        <option value="modern">Șablon: Modern</option>
+        <option value="clasic">Șablon: Clasic</option>
+      </select>
+      <input type="color" id="accent" value="#2563eb" aria-label="Culoare accent">
+      <button type="button" id="export-json" class="ghost">Salvează JSON</button>
+      <label class="ghost btn">Încarcă JSON<input type="file" id="import-json" accept="application/json" hidden></label>
+      <button type="button" id="reset" class="ghost">Golește</button>
+      <button type="button" id="pdf">Descarcă PDF</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <form id="form" class="editor" autocomplete="off">
+      <fieldset>
+        <legend>Date personale</legend>
+        <label>Nume complet<input name="name" placeholder="Andrei Popescu"></label>
+        <label>Titlu / poziție<input name="title" placeholder="Programator Full Stack"></label>
+        <div class="row">
+          <label>Email<input name="email" type="email" placeholder="andrei@exemplu.ro"></label>
+          <label>Telefon<input name="phone" placeholder="+40 700 000 000"></label>
+        </div>
+        <div class="row">
+          <label>Oraș<input name="city" placeholder="București"></label>
+          <label>Website / LinkedIn<input name="website" placeholder="linkedin.com/in/andrei"></label>
+        </div>
+        <label>Fotografie (opțional)<input type="file" id="photo" accept="image/*"></label>
+        <label>Profil profesional<textarea name="summary" rows="4" placeholder="2–3 fraze despre experiența și obiectivele tale."></textarea></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Experiență</legend>
+        <div id="experience" class="list"></div>
+        <button type="button" class="ghost" data-add="experience">+ Adaugă experiență</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Educație</legend>
+        <div id="education" class="list"></div>
+        <button type="button" class="ghost" data-add="education">+ Adaugă studii</button>
+      </fieldset>
+
+      <fieldset>
+        <legend>Competențe și limbi</legend>
+        <label>Competențe (separate prin virgulă)<input name="skills" placeholder="Laravel, React, MySQL, Git"></label>
+        <label>Limbi străine (separate prin virgulă)<input name="languages" placeholder="Engleză — C1, Germană — A2"></label>
+      </fieldset>
+      <p class="privacy">🔒 Totul rămâne în browserul tău: nimic nu e trimis pe vreun server.</p>
+    </form>
+
+    <section class="preview-wrap" aria-label="Previzualizare">
+      <article id="cv" class="cv modern"></article>
+    </section>
+  </main>
+
+  <template id="tpl-experience">
+    <div class="item">
+      <div class="row"><label>Poziție<input data-k="role"></label><label>Companie<input data-k="company"></label></div>
+      <div class="row"><label>Perioadă<input data-k="period" placeholder="2022 — prezent"></label><label>Oraș<input data-k="place"></label></div>
+      <label>Realizări (câte una pe rând)<textarea data-k="details" rows="3"></textarea></label>
+      <button type="button" class="link" data-remove>Șterge</button>
+    </div>
+  </template>
+  <template id="tpl-education">
+    <div class="item">
+      <div class="row"><label>Specializare / diplomă<input data-k="degree"></label><label>Instituție<input data-k="school"></label></div>
+      <label>Perioadă<input data-k="period" placeholder="2018 — 2021"></label>
+      <button type="button" class="link" data-remove>Șterge</button>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
